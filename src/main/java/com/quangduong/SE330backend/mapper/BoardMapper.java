@@ -4,7 +4,7 @@ import com.quangduong.SE330backend.dto.board.BoardDTO;
 import com.quangduong.SE330backend.dto.board.BoardUpdateDTO;
 import com.quangduong.SE330backend.entity.BoardEntity;
 import com.quangduong.SE330backend.exception.ResourceNotFoundException;
-import com.quangduong.SE330backend.repository.UserRepository;
+import com.quangduong.SE330backend.repository.sql.UserRepository;
 import com.quangduong.SE330backend.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

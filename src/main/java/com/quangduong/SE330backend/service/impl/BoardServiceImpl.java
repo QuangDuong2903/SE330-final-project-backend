@@ -5,7 +5,7 @@ import com.quangduong.SE330backend.dto.board.BoardUpdateDTO;
 import com.quangduong.SE330backend.exception.NoPermissionException;
 import com.quangduong.SE330backend.exception.ResourceNotFoundException;
 import com.quangduong.SE330backend.mapper.BoardMapper;
-import com.quangduong.SE330backend.repository.BoardRepository;
+import com.quangduong.SE330backend.repository.sql.BoardRepository;
 import com.quangduong.SE330backend.service.BoardService;
 import com.quangduong.SE330backend.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;

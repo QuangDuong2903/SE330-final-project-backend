@@ -4,7 +4,7 @@ import com.quangduong.SE330backend.dto.attribute.LabelAttributeDTO;
 import com.quangduong.SE330backend.entity.LabelAttributeEntity;
 import com.quangduong.SE330backend.exception.NoPermissionException;
 import com.quangduong.SE330backend.exception.ResourceNotFoundException;
-import com.quangduong.SE330backend.repository.LabelRepository;
+import com.quangduong.SE330backend.repository.sql.LabelRepository;
 import com.quangduong.SE330backend.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -9,7 +9,7 @@ import com.quangduong.SE330backend.dto.task.TaskUpdateDTO;
 import com.quangduong.SE330backend.entity.*;
 import com.quangduong.SE330backend.exception.NoPermissionException;
 import com.quangduong.SE330backend.exception.ResourceNotFoundException;
-import com.quangduong.SE330backend.repository.*;
+import com.quangduong.SE330backend.repository.sql.*;
 import com.quangduong.SE330backend.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

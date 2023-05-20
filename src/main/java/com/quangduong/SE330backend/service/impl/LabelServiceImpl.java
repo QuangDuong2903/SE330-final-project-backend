@@ -6,7 +6,7 @@ import com.quangduong.SE330backend.entity.LabelEntity;
 import com.quangduong.SE330backend.exception.NoPermissionException;
 import com.quangduong.SE330backend.exception.ResourceNotFoundException;
 import com.quangduong.SE330backend.mapper.LabelMapper;
-import com.quangduong.SE330backend.repository.LabelRepository;
+import com.quangduong.SE330backend.repository.sql.LabelRepository;
 import com.quangduong.SE330backend.service.LabelService;
 import com.quangduong.SE330backend.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
