@@ -1,6 +1,6 @@
 package com.quangduong.SE330backend.api;
 
-import com.quangduong.SE330backend.dto.user.UserBoard;
+import com.quangduong.SE330backend.dto.user.UserBoardDTO;
 import com.quangduong.SE330backend.dto.user.UserDTO;
 import com.quangduong.SE330backend.service.UserService;
 import com.quangduong.SE330backend.utils.JwtUtils;
@@ -36,6 +36,6 @@ public class AuthAPI {
         );
     }
 
-    record LoginResponse(long id, String email, String displayName, String photoUrl, String token, List<UserBoard> boards) {}
+    record LoginResponse(long id, String email, String displayName, String photoUrl, String token, List<UserBoardDTO> boards) {}
 
 }

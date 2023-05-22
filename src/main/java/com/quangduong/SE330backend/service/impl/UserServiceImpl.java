@@ -2,6 +2,7 @@ package com.quangduong.SE330backend.service.impl;
 
 import com.quangduong.SE330backend.constant.UserStatus;
 import com.quangduong.SE330backend.dto.user.UserDTO;
+import com.quangduong.SE330backend.dto.user.UserInfoDTO;
 import com.quangduong.SE330backend.entity.UserEntity;
 import com.quangduong.SE330backend.mapper.UserMapper;
 //import com.quangduong.SE330backend.repository.elastic.UserElasticRepository;
@@ -39,9 +40,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> findUser(String keyword, Pageable pageable) {
+    public List<UserInfoDTO> findUser(String keyword, Pageable pageable) {
         return userRepository.findByEmailContainingOrDisplayNameContaining(keyword, keyword, pageable)
-                .stream().map(u -> userMapper.toDTO(u)).collect(Collectors.toList());
+                .stream().map(u -> userMapper.userInfoDTO(u)).collect(Collectors.toList());
     }
 
 //    @Override
