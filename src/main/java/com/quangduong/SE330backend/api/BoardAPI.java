@@ -23,20 +23,23 @@ public class BoardAPI {
     }
 
     @PostMapping
-    public ResponseEntity<BoardDTO> createBoard(@RequestBody @Valid BoardDTO dto) {
-        return new ResponseEntity<>(boardService.createBoard(dto), HttpStatus.CREATED);
+    public ResponseEntity<CreateBoardResponse> createBoard(@RequestBody @Valid BoardDTO dto) {
+        BoardDTO boardDTO = boardService.createBoard(dto);
+        return new ResponseEntity<>(new CreateBoardResponse(boardDTO.getId(), boardDTO.getName()), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<BoardDTO> updateBoard(@PathVariable("id") long id, @RequestBody BoardUpdateDTO dto) {
+    public ResponseEntity<BoardDetailsDTO> updateBoard(@PathVariable("id") long id, @RequestBody BoardUpdateDTO dto) {
         dto.setId(id);
         return ResponseEntity.ok(boardService.updateBoard(dto));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> createBoard(@PathVariable("id") long id) {
+    public ResponseEntity<Void> deleteBoard(@PathVariable("id") long id) {
         boardService.deleteBoardById(id);
         return ResponseEntity.ok().body(null);
     }
+
+    record CreateBoardResponse(Long id, String name) {}
 
 }

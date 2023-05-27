@@ -66,6 +66,7 @@ public class BoardServiceImpl implements BoardService {
                 notificationEntity.setAccept(false);
                 notificationEntity.setMessage("You has been invited to " + entity.getName());
                 notificationEntity.setRead(false);
+                notificationEntity.setReject(false);
                 notificationEntity.setUser(userRepository.findById(i).get());
                 notificationEntity.setThumbnail(securityUtils.getCurrentUser().getPhotoUrl());
                 notificationEntity.setType(NotificationType.INVITATION);
@@ -76,12 +77,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     @Transactional
-    public BoardDTO updateBoard(BoardUpdateDTO dto) {
+    public BoardDetailsDTO updateBoard(BoardUpdateDTO dto) {
         long id = dto.getId();
         if (securityUtils.getCurrentUserId() != boardRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found board with id: " + id)).getAdmin().getId())
             throw new NoPermissionException("Update board with id: " + id + " not allowed");
-        return boardMapper.toDTO(
+        return boardMapper.toDetailsDTO(
                 boardRepository.save(boardMapper.toEntity(dto, boardRepository.findById(dto.getId())
                         .orElseThrow(() -> new ResourceNotFoundException("Not found board with id: " + dto.getId()))
                 ))
