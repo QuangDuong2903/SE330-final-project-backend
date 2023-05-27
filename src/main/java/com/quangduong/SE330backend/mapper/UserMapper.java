@@ -1,9 +1,16 @@
 package com.quangduong.SE330backend.mapper;
 
 import com.quangduong.SE330backend.constant.UserStatus;
+import com.quangduong.SE330backend.dto.user.UserBoardDTO;
 import com.quangduong.SE330backend.dto.user.UserDTO;
+import com.quangduong.SE330backend.dto.user.UserInfoDTO;
+import com.quangduong.SE330backend.entity.BoardEntity;
 import com.quangduong.SE330backend.entity.UserEntity;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
@@ -14,6 +21,19 @@ public class UserMapper {
         dto.setDisplayName(entity.getDisplayName());
         dto.setFamilyName(entity.getFamilyName());
         dto.setGivenName(entity.getGivenName());
+        dto.setEmail(entity.getEmail());
+        dto.setPhotoUrl(entity.getPhotoUrl());
+        List<BoardEntity> boardEntities = new ArrayList<>();
+        boardEntities.addAll(entity.getOwnerBoards());
+        boardEntities.addAll(entity.getBoards());
+        boardEntities = boardEntities.stream().sorted((o1, o2) -> o2.getCreatedDate().compareTo(o1.getCreatedDate())).collect(Collectors.toList());
+        dto.setBoards(boardEntities.stream().map(b -> new UserBoardDTO(b.getId(), b.getName())).collect(Collectors.toList()));
+        return dto;
+    }
+
+    public UserInfoDTO userInfoDTO(UserEntity entity) {
+        UserInfoDTO dto = new UserInfoDTO();
+        dto.setId(entity.getId());
         dto.setEmail(entity.getEmail());
         dto.setPhotoUrl(entity.getPhotoUrl());
         return dto;

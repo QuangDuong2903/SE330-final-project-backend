@@ -21,8 +21,8 @@ public class ControllerExceptionHandler {
     public ResponseEntity<ErrorResponse> resourceNotFoundExceptionHandler(ResourceNotFoundException e, HttpServletRequest request) {
         logger.error(e.getMessage());
         return new ResponseEntity<ErrorResponse>(
-                new ErrorResponse(HttpServletResponse.SC_NOT_FOUND, e.getMessage(), request.getRequestURI()),
-                HttpStatus.NOT_FOUND);
+                new ErrorResponse(HttpServletResponse.SC_BAD_REQUEST, e.getMessage(), request.getRequestURI()),
+                HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NoPermissionException.class)
@@ -51,7 +51,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> globalExceptionHandler(Exception e, HttpServletRequest request) {
-        logger.error("Exception: ", e.getCause());
+        logger.error("Exception: ", e.getMessage());
         return ResponseEntity.internalServerError().body(new ErrorResponse(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                 "INTERNAL SERVER ERROR", request.getRequestURI()));
     }

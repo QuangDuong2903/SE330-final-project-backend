@@ -3,7 +3,10 @@ package com.quangduong.SE330backend.dto.user;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
+
 public class UserDTO {
+
     private long id;
     @NotBlank(message = "Email required")
     @Email(message = "Email not valid")
@@ -20,6 +23,16 @@ public class UserDTO {
 
     @NotBlank(message = "Photo required")
     private String photoUrl;
+
+    private List<UserBoardDTO> boards;
+
+    public List<UserBoardDTO> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(List<UserBoardDTO> boards) {
+        this.boards = boards;
+    }
 
     public String getEmail() {
         return email;
