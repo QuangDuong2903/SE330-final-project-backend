@@ -3,6 +3,7 @@ package com.quangduong.SE330backend.api;
 import com.quangduong.SE330backend.dto.board.BoardDTO;
 import com.quangduong.SE330backend.dto.board.BoardDetailsDTO;
 import com.quangduong.SE330backend.dto.board.BoardUpdateDTO;
+import com.quangduong.SE330backend.dto.board.chart.ChartDTO;
 import com.quangduong.SE330backend.service.BoardService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class BoardAPI {
     @GetMapping("{id}")
     public ResponseEntity<BoardDetailsDTO> getBoardDetails(@PathVariable("id") long id) {
         return ResponseEntity.ok(boardService.getBoardDetails(id));
+    }
+
+    @GetMapping("{id}/chart")
+    public ResponseEntity<ChartDTO> getBoardChart(@PathVariable("id") long id) {
+        return ResponseEntity.ok(boardService.getChartData(id));
     }
 
     @PostMapping
