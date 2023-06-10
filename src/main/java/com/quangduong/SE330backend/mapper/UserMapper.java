@@ -4,8 +4,9 @@ import com.quangduong.SE330backend.constant.UserStatus;
 import com.quangduong.SE330backend.dto.user.UserBoardDTO;
 import com.quangduong.SE330backend.dto.user.UserDTO;
 import com.quangduong.SE330backend.dto.user.UserInfoDTO;
-import com.quangduong.SE330backend.entity.BoardEntity;
-import com.quangduong.SE330backend.entity.UserEntity;
+import com.quangduong.SE330backend.entity.elasticsearch.UserModel;
+import com.quangduong.SE330backend.entity.sql.BoardEntity;
+import com.quangduong.SE330backend.entity.sql.UserEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -31,6 +32,14 @@ public class UserMapper {
         dto.setHasNonReadNotification(entity.getNotifications().stream().anyMatch(n -> !n.isRead()));
         dto.setNew(dto.getBoards().size() == 0);
         return dto;
+    }
+
+    public UserModel toUserModel(UserEntity entity) {
+        UserModel userModel = new UserModel();
+        userModel.setUserId(entity.getId());
+        userModel.setEmail(entity.getEmail());
+        userModel.setDisplayName(entity.getDisplayName());
+        return userModel;
     }
 
     public UserInfoDTO userInfoDTO(UserEntity entity) {

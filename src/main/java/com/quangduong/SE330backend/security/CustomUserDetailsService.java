@@ -1,7 +1,7 @@
 package com.quangduong.SE330backend.security;
 
 import com.quangduong.SE330backend.constant.UserStatus;
-import com.quangduong.SE330backend.entity.UserEntity;
+import com.quangduong.SE330backend.entity.sql.UserEntity;
 import com.quangduong.SE330backend.repository.sql.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

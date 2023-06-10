@@ -3,8 +3,9 @@ package com.quangduong.SE330backend.service.impl;
 import com.quangduong.SE330backend.constant.UserStatus;
 import com.quangduong.SE330backend.dto.user.UserDTO;
 import com.quangduong.SE330backend.dto.user.UserInfoDTO;
-import com.quangduong.SE330backend.entity.UserEntity;
+import com.quangduong.SE330backend.entity.sql.UserEntity;
 import com.quangduong.SE330backend.mapper.UserMapper;
+import com.quangduong.SE330backend.repository.elasticsearch.UserModelRepository;
 import com.quangduong.SE330backend.repository.sql.UserRepository;
 import com.quangduong.SE330backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private UserModelRepository userModelRepository;
+
+    @Autowired
     private UserMapper userMapper;
 
     @Override
@@ -35,12 +39,15 @@ public class UserServiceImpl implements UserService {
             }
             return userMapper.toDTO(user);
         }
-        return userMapper.toDTO(userRepository.save(userMapper.toEntity(dto)));
+        user = userRepository.save(userMapper.toEntity(dto));
+        userModelRepository.save(userMapper.toUserModel(user));
+        return userMapper.toDTO(user);
     }
 
     @Override
     public List<UserInfoDTO> findUser(String keyword, Pageable pageable) {
-        return userRepository.findByEmailContainingOrDisplayNameContaining(keyword, keyword, pageable)
-                .stream().map(u -> userMapper.userInfoDTO(u)).collect(Collectors.toList());
+        return userModelRepository.findUserByEmailOrDisplayName(keyword, pageable)
+                .stream().map(m -> userRepository.findById(m.getUserId()).get())
+                .map(u -> userMapper.userInfoDTO(u)).collect(Collectors.toList());
     }
 }

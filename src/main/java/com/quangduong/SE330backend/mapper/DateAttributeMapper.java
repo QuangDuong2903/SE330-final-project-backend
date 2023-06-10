@@ -1,12 +1,8 @@
 package com.quangduong.SE330backend.mapper;
 
 import com.quangduong.SE330backend.dto.attribute.DateAttributeDTO;
-import com.quangduong.SE330backend.dto.attribute.TextAttributeDTO;
-import com.quangduong.SE330backend.entity.DateAttributeEntity;
-import com.quangduong.SE330backend.entity.TextAttributeEntity;
+import com.quangduong.SE330backend.entity.sql.DateAttributeEntity;
 import org.springframework.stereotype.Component;
-
-import java.util.Calendar;
 
 @Component
 public class DateAttributeMapper {

@@ -7,7 +7,7 @@ import com.quangduong.SE330backend.dto.attribute.TextAttributeDTO;
 import com.quangduong.SE330backend.dto.task.TaskDTO;
 import com.quangduong.SE330backend.dto.task.TaskDetailsDTO;
 import com.quangduong.SE330backend.dto.task.TaskUpdateDTO;
-import com.quangduong.SE330backend.entity.*;
+import com.quangduong.SE330backend.entity.sql.*;
 import com.quangduong.SE330backend.exception.NoPermissionException;
 import com.quangduong.SE330backend.exception.ResourceNotFoundException;
 import com.quangduong.SE330backend.repository.sql.*;

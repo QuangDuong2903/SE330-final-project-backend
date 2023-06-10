@@ -1,7 +1,7 @@
 package com.quangduong.SE330backend.mapper;
 
 import com.quangduong.SE330backend.dto.notification.NotificationDTO;
-import com.quangduong.SE330backend.entity.NotificationEntity;
+import com.quangduong.SE330backend.entity.sql.NotificationEntity;
 import org.springframework.stereotype.Component;
 
 @Component

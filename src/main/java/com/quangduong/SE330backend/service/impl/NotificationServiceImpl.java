@@ -2,8 +2,8 @@ package com.quangduong.SE330backend.service.impl;
 
 import com.quangduong.SE330backend.constant.NotificationType;
 import com.quangduong.SE330backend.dto.notification.NotificationDTO;
-import com.quangduong.SE330backend.entity.BoardEntity;
-import com.quangduong.SE330backend.entity.NotificationEntity;
+import com.quangduong.SE330backend.entity.sql.BoardEntity;
+import com.quangduong.SE330backend.entity.sql.NotificationEntity;
 import com.quangduong.SE330backend.exception.NoPermissionException;
 import com.quangduong.SE330backend.exception.ResourceNotFoundException;
 import com.quangduong.SE330backend.mapper.NotificationMapper;

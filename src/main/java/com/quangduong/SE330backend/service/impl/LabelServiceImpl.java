@@ -2,7 +2,7 @@ package com.quangduong.SE330backend.service.impl;
 
 import com.quangduong.SE330backend.dto.label.LabelDTO;
 import com.quangduong.SE330backend.dto.label.LabelUpdateDTO;
-import com.quangduong.SE330backend.entity.LabelEntity;
+import com.quangduong.SE330backend.entity.sql.LabelEntity;
 import com.quangduong.SE330backend.exception.NoPermissionException;
 import com.quangduong.SE330backend.exception.ResourceNotFoundException;
 import com.quangduong.SE330backend.mapper.LabelMapper;
