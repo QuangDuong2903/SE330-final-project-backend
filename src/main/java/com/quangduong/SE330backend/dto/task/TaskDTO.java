@@ -1,17 +1,26 @@
 package com.quangduong.SE330backend.dto.task;
 
+import com.quangduong.SE330backend.constant.TaskStatus;
 import com.quangduong.SE330backend.dto.attribute.DateAttributeDTO;
 import com.quangduong.SE330backend.dto.attribute.LabelAttributeDTO;
 import com.quangduong.SE330backend.dto.attribute.NumberAttributeDTO;
 import com.quangduong.SE330backend.dto.attribute.TextAttributeDTO;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
 public class TaskDTO {
     private long id;
+
+    @NotBlank(message = "Task description is required")
+    private String description;
+
     @NotNull(message = "User id is required")
     private Long userId;
+
+    @NotNull(message = "Status is required")
+    private TaskStatus status;
 
     @NotNull(message = "Table id is required")
     private Long tableId;
@@ -23,6 +32,14 @@ public class TaskDTO {
     private List<DateAttributeDTO> dateAttributes;
 
     private List<LabelAttributeDTO> labelAttributes;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public List<LabelAttributeDTO> getLabelAttributes() {
         return labelAttributes;
@@ -78,5 +95,13 @@ public class TaskDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 }

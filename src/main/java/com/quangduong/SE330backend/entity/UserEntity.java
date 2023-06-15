@@ -38,10 +38,10 @@ public class UserEntity extends BaseEntity {
     private List<TableEntity> tables = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<LabelEntity> labels = new ArrayList<>();
+    private List<TaskEntity> tasks = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<TaskEntity> tasks = new ArrayList<>();
+    private List<NotificationEntity> notifications = new ArrayList<>();
 
     public String getEmail() {
         return email;
@@ -107,14 +107,6 @@ public class UserEntity extends BaseEntity {
         this.tables = tables;
     }
 
-    public List<LabelEntity> getLabels() {
-        return labels;
-    }
-
-    public void setLabels(List<LabelEntity> labels) {
-        this.labels = labels;
-    }
-
     public List<TaskEntity> getTasks() {
         return tasks;
     }
@@ -129,5 +121,13 @@ public class UserEntity extends BaseEntity {
 
     public void setStatus(UserStatus status) {
         this.status = status;
+    }
+
+    public List<NotificationEntity> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<NotificationEntity> notifications) {
+        this.notifications = notifications;
     }
 }

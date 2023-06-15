@@ -1,6 +1,7 @@
 package com.quangduong.SE330backend.api;
 
 import com.quangduong.SE330backend.dto.task.TaskDTO;
+import com.quangduong.SE330backend.dto.task.TaskDetailsDTO;
 import com.quangduong.SE330backend.dto.task.TaskUpdateDTO;
 import com.quangduong.SE330backend.repository.sql.TextAttributeRepository;
 import com.quangduong.SE330backend.service.TaskService;
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("task")
+@RequestMapping("tasks")
 public class TaskAPI {
 
     @Autowired
@@ -21,12 +22,12 @@ public class TaskAPI {
     private TextAttributeRepository textAttributeRepository;
 
     @PostMapping
-    public ResponseEntity<TaskDTO> createTask(@RequestBody @Valid TaskDTO dto) {
+    public ResponseEntity<TaskDetailsDTO> createTask(@RequestBody @Valid TaskDTO dto) {
         return new ResponseEntity<>(taskService.createTask(dto), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<TaskDTO> updateTask(@PathVariable("id") long id, @RequestBody TaskUpdateDTO dto) {
+    public ResponseEntity<TaskDetailsDTO> updateTask(@PathVariable("id") long id, @RequestBody TaskUpdateDTO dto) {
         dto.setId(id);
         return ResponseEntity.ok(taskService.updateTask(dto));
     }
@@ -34,8 +35,6 @@ public class TaskAPI {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable("id") long id) {
         taskService.deleteTask(id);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
-
-
 }

@@ -1,5 +1,6 @@
 package com.quangduong.SE330backend.mapper;
 
+import com.quangduong.SE330backend.constant.UserStatus;
 import com.quangduong.SE330backend.dto.table.TableDTO;
 import com.quangduong.SE330backend.dto.table.TableDetailsDTO;
 import com.quangduong.SE330backend.dto.table.TableUpdateDTO;
@@ -33,17 +34,19 @@ public class TableMapper {
         TableDTO dto = new TableDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
+        dto.setDescription(entity.getDescription());
         dto.setBoardId(entity.getBoard().getId());
         dto.setMemberIds(entity.getMembers().stream().map(m -> m.getId()).collect(Collectors.toList()));
         dto.setTaskIds(entity.getTasks().stream().map(t -> t.getId()).collect(Collectors.toList()));
         return dto;
     }
 
-    public TableDetailsDTO taskDetailsDTO(TableEntity entity) {
+    public TableDetailsDTO toDetailsDTO(TableEntity entity) {
         TableDetailsDTO dto = new TableDetailsDTO();
         dto.setId(entity.getId());
-        dto.setCreatedBy(entity.getCreatedBy());
+        dto.setCreatedBy(userMapper.userInfoDTO(userRepository.findOneByEmailAndStatus(entity.getCreatedBy(), UserStatus.ACTIVE)));
         dto.setName(entity.getName());
+        dto.setDescription(entity.getDescription());
         dto.setMembers(entity.getMembers().stream().map(m -> userMapper.userInfoDTO(m)).collect(Collectors.toList()));
         dto.setTasks(entity.getTasks().stream().map(t -> taskMapper.toDetailsDTO(t)).collect(Collectors.toList()));
         return dto;
@@ -52,6 +55,7 @@ public class TableMapper {
     public TableEntity toEntity(TableDTO dto) {
         TableEntity entity = new TableEntity();
         entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
         entity.setBoard(boardRepository.findById(dto.getBoardId())
                 .orElseThrow(() -> new ResourceNotFoundException("Not found board with id: " + dto.getBoardId()))
         );
@@ -67,20 +71,15 @@ public class TableMapper {
     public TableEntity toEntity(TableUpdateDTO dto, TableEntity entity) {
         if (dto.getName() != null)
             entity.setName(dto.getName());
+        if (dto.getDescription() != null)
+            entity.setDescription(dto.getDescription());
         if (dto.getMemberIds() != null) {
-            if (dto.getMemberIds().size() > 0) {
-                if(entity.getBoard().getMembers().size() == 0)
-                    throw new NoPermissionException("Not allowed");
-                entity.getBoard().getMembers().forEach(m -> {
-                    AtomicBoolean isFound = new AtomicBoolean(false);
-                    dto.getMemberIds().forEach(i -> {
-                        if (i == m.getId())
-                            isFound.set(true);
-                    });
-                    if (!isFound.get())
-                        throw new NoPermissionException("Not allowed");
+            if (dto.getMemberIds().size() > 0)
+                dto.getMemberIds().forEach(i -> {
+                    if (entity.getBoard().getMembers().stream().noneMatch(m -> m.getId() == i)
+                            && i != entity.getBoard().getAdmin().getId()
+                    ) throw new NoPermissionException("User not in board");
                 });
-            }
 
             entity.setMembers(dto.getMemberIds().stream()
                     .map(i -> userRepository.findById(i)

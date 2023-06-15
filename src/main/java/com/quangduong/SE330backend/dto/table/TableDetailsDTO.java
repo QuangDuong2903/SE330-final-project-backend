@@ -9,9 +9,11 @@ public class TableDetailsDTO {
 
     private long id;
 
-    private String createdBy;
+    private UserInfoDTO createdBy;
 
     private String name;
+
+    private String description;
 
     private List<UserInfoDTO> members;
 
@@ -25,11 +27,19 @@ public class TableDetailsDTO {
         this.id = id;
     }
 
-    public String getCreatedBy() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public UserInfoDTO getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(UserInfoDTO createdBy) {
         this.createdBy = createdBy;
     }
 

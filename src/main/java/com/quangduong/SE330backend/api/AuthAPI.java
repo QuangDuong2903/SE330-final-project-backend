@@ -28,14 +28,16 @@ public class AuthAPI {
     public ResponseEntity<LoginResponse> login(@RequestBody @Valid UserDTO dto) {
         UserDTO user = userService.createUser(dto);
         return ResponseEntity.ok(new LoginResponse(user.getId(),
+                user.isNew(),
                 user.getEmail(),
                 user.getDisplayName(),
                 user.getPhotoUrl(),
                 jwtUtils.generateToken(user.getEmail()),
-                user.getBoards())
+                user.getBoards(),
+                user.isHasNonReadNotification())
         );
     }
 
-    record LoginResponse(long id, String email, String displayName, String photoUrl, String token, List<UserBoardDTO> boards) {}
+    record LoginResponse(long id, boolean isNew, String email, String displayName, String photoUrl, String token, List<UserBoardDTO> boards, boolean hasNonReadNotification) {}
 
 }

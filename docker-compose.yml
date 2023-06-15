@@ -1,0 +1,62 @@
+version: '3'
+services:
+
+  prometheus:
+    image: "prom/prometheus:v2.40.4"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
+    networks:
+      - be-network
+    depends_on:
+      - spring-boot-app
+    container_name: prometheus
+  grafana:
+    image: "grafana/grafana:8.5.26"
+    ports:
+      - "3000:3000"
+    networks:
+      - be-network
+    depends_on:
+      - prometheus
+    container_name: grafana
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - 3307:3306
+    networks:
+      - be-network
+    restart: always
+    environment:
+      MYSQL_DATABASE: workmanagement
+      MYSQL_ROOT_PASSWORD: 292003
+      MYSQL_USER: quangduong
+      MYSQL_PASSWORD: 292003
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  spring-boot-app:
+    container_name: spring-boot-app
+    build: .
+    ports:
+      - 8081:8081
+    depends_on:
+      - mysql
+    networks:
+      - be-network
+    restart: always
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: workmanagement
+      DB_USER: quangduong
+      DB_PASSWORD: 292003
+volumes:
+  mysql-data:
+networks:
+  be-network:

@@ -5,11 +5,12 @@ import com.quangduong.SE330backend.dto.label.LabelUpdateDTO;
 import com.quangduong.SE330backend.service.LabelService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("label")
+@RequestMapping("labels")
 public class LabelAPI {
 
     @Autowired
@@ -17,7 +18,7 @@ public class LabelAPI {
 
     @PostMapping
     public ResponseEntity<LabelDTO> createLabel(@RequestBody @Valid LabelDTO dto) {
-        return ResponseEntity.ok(labelService.createLabel(dto));
+        return new ResponseEntity<>(labelService.createLabel(dto), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
@@ -29,7 +30,7 @@ public class LabelAPI {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> createLabel(@PathVariable("id") long id) {
         labelService.deleteLabel(id);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 
 }

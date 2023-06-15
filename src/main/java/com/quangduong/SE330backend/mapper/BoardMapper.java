@@ -28,6 +28,9 @@ public class BoardMapper {
     @Autowired
     private TableMapper tableMapper;
 
+    @Autowired
+    private LabelMapper labelMapper;
+
     public BoardDTO toDTO(BoardEntity entity) {
         BoardDTO dto = new BoardDTO();
         dto.setId(entity.getId());
@@ -46,12 +49,13 @@ public class BoardMapper {
         dto.setMembers(entity.getMembers().stream().map(m -> userMapper.userInfoDTO(m)).collect(Collectors.toList()));
         dto.setTables(entity.getTables().stream()
                         .filter(t -> securityUtils.getCurrentUserId() == entity.getAdmin().getId()
-                                || t.getCreatedBy() == securityUtils.getCurrentUser().getEmail()
+                                || t.getCreatedBy().equals(securityUtils.getCurrentUser().getEmail())
                                 || t.getMembers().stream().anyMatch(m -> m.getId() == securityUtils.getCurrentUserId())
                         )
-                        .map(t -> tableMapper.taskDetailsDTO(t))
+                        .map(t -> tableMapper.toDetailsDTO(t))
                         .collect(Collectors.toList())
         );
+        dto.setLabels(entity.getLabels().stream().map(l -> labelMapper.toDTO(l)).toList());
         return dto;
     }
 
@@ -59,22 +63,12 @@ public class BoardMapper {
         BoardEntity entity = new BoardEntity();
         entity.setName(dto.getName());
         entity.setAdmin(securityUtils.getCurrentUser());
-        if(dto.getMembersIds() != null)
-            entity.setMembers(dto.getMembersIds().stream()
-                    .map(i -> userRepository.findById(i).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + i)))
-                    .collect(Collectors.toList())
-            );
         return entity;
     }
 
     public BoardEntity toEntity(BoardUpdateDTO dto, BoardEntity entity) {
         if (dto.getName() != null)
             entity.setName(dto.getName());
-        if (dto.getMembersIds() != null)
-            entity.setMembers(dto.getMembersIds().stream()
-                    .map(i -> userRepository.findById(i).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + i)))
-                    .collect(Collectors.toList())
-            );
         return entity;
     }
 }

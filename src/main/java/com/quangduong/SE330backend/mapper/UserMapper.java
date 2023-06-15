@@ -29,7 +29,17 @@ public class UserMapper {
         boardEntities.addAll(entity.getBoards());
         boardEntities = boardEntities.stream().sorted((o1, o2) -> o2.getCreatedDate().compareTo(o1.getCreatedDate())).collect(Collectors.toList());
         dto.setBoards(boardEntities.stream().map(b -> new UserBoardDTO(b.getId(), b.getName())).collect(Collectors.toList()));
+        dto.setHasNonReadNotification(entity.getNotifications().stream().anyMatch(n -> !n.isRead()));
+        dto.setNew(dto.getBoards().size() == 0);
         return dto;
+    }
+
+    public UserModel toUserModel(UserEntity entity) {
+        UserModel userModel = new UserModel();
+        userModel.setUserId(entity.getId());
+        userModel.setEmail(entity.getEmail());
+        userModel.setDisplayName(entity.getDisplayName());
+        return userModel;
     }
 
     public UserInfoDTO userInfoDTO(UserEntity entity) {
@@ -37,17 +47,7 @@ public class UserMapper {
         dto.setId(entity.getId());
         dto.setEmail(entity.getEmail());
         dto.setPhotoUrl(entity.getPhotoUrl());
-        return dto;
-    }
-
-    public UserDTO toDTO(UserModel model) {
-        UserDTO dto = new UserDTO();
-        dto.setId(model.getUserId());
-        dto.setDisplayName(model.getDisplayName());
-        dto.setFamilyName(model.getFamilyName());
-        dto.setGivenName(model.getGivenName());
-        dto.setEmail(model.getEmail());
-        dto.setPhotoUrl(model.getPhotoUrl());
+        dto.setDisplayName(entity.getDisplayName());
         return dto;
     }
 
@@ -60,17 +60,6 @@ public class UserMapper {
         entity.setPhotoUrl(dto.getPhotoUrl());
         entity.setStatus(UserStatus.ACTIVE);
         return entity;
-    }
-
-    public UserModel toModel(UserEntity entity) {
-        UserModel model = new UserModel();
-        model.setUserId(entity.getId());
-        model.setEmail(entity.getEmail());
-        model.setDisplayName(entity.getDisplayName());
-        model.setFamilyName(entity.getFamilyName());
-        model.setGivenName(entity.getGivenName());
-        model.setPhotoUrl(entity.getPhotoUrl());
-        return model;
     }
 
 }
