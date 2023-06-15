@@ -1,6 +1,6 @@
 package com.quangduong.SE330backend.utils;
 
-import com.quangduong.SE330backend.entity.UserEntity;
+import com.quangduong.SE330backend.entity.sql.UserEntity;
 import com.quangduong.SE330backend.repository.sql.UserRepository;
 import com.quangduong.SE330backend.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;

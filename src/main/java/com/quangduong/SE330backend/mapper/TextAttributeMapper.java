@@ -1,7 +1,7 @@
 package com.quangduong.SE330backend.mapper;
 
 import com.quangduong.SE330backend.dto.attribute.TextAttributeDTO;
-import com.quangduong.SE330backend.entity.TextAttributeEntity;
+import com.quangduong.SE330backend.entity.sql.TextAttributeEntity;
 import org.springframework.stereotype.Component;
 
 @Component

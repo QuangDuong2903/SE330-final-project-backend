@@ -1,8 +1,7 @@
 package com.quangduong.SE330backend.mapper;
 
 import com.quangduong.SE330backend.dto.attribute.LabelAttributeDTO;
-import com.quangduong.SE330backend.entity.LabelAttributeEntity;
-import com.quangduong.SE330backend.exception.NoPermissionException;
+import com.quangduong.SE330backend.entity.sql.LabelAttributeEntity;
 import com.quangduong.SE330backend.exception.ResourceNotFoundException;
 import com.quangduong.SE330backend.repository.sql.BoardRepository;
 import com.quangduong.SE330backend.repository.sql.LabelRepository;

@@ -4,7 +4,7 @@ import com.quangduong.SE330backend.constant.UserStatus;
 import com.quangduong.SE330backend.dto.table.TableDTO;
 import com.quangduong.SE330backend.dto.table.TableDetailsDTO;
 import com.quangduong.SE330backend.dto.table.TableUpdateDTO;
-import com.quangduong.SE330backend.entity.TableEntity;
+import com.quangduong.SE330backend.entity.sql.TableEntity;
 import com.quangduong.SE330backend.exception.NoPermissionException;
 import com.quangduong.SE330backend.exception.ResourceNotFoundException;
 import com.quangduong.SE330backend.repository.sql.BoardRepository;
@@ -12,7 +12,6 @@ import com.quangduong.SE330backend.repository.sql.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @Component

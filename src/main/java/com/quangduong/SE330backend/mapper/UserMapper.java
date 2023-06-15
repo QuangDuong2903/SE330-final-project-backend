@@ -4,9 +4,9 @@ import com.quangduong.SE330backend.constant.UserStatus;
 import com.quangduong.SE330backend.dto.user.UserBoardDTO;
 import com.quangduong.SE330backend.dto.user.UserDTO;
 import com.quangduong.SE330backend.dto.user.UserInfoDTO;
-import com.quangduong.SE330backend.entity.BoardEntity;
-import com.quangduong.SE330backend.entity.UserEntity;
-import com.quangduong.SE330backend.model.UserModel;
+import com.quangduong.SE330backend.entity.elasticsearch.UserModel;
+import com.quangduong.SE330backend.entity.sql.BoardEntity;
+import com.quangduong.SE330backend.entity.sql.UserEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
